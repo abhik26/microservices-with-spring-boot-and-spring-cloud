@@ -6,18 +6,23 @@ public class CurrencyConversion {
 	private String fromCurrency;
 	private String toCurrency;
 	private Double quantity;
-	private Double conversionMultiplier;
+	private Double conversionMultiple;
 	private Double totalConvertedValue;
+	private String port;
 	
+	public CurrencyConversion() {
+	}
+
 	public CurrencyConversion(Long id, String fromCurrency, String toCurrency, Double quantity,
-			Double conversionMultiplier, Double totalConvertedValue) {
+			Double conversionMultiple, Double totalConvertedValue, String port) {
 		super();
 		this.id = id;
 		this.fromCurrency = fromCurrency;
 		this.toCurrency = toCurrency;
 		this.quantity = quantity;
-		this.conversionMultiplier = conversionMultiplier;
+		this.conversionMultiple = conversionMultiple;
 		this.totalConvertedValue = totalConvertedValue;
+		this.port = port;
 	}
 
 	public Long getId() {
@@ -52,12 +57,12 @@ public class CurrencyConversion {
 		this.quantity = quantity;
 	}
 
-	public Double getConversionMultiplier() {
-		return conversionMultiplier;
+	public Double getConversionMultiple() {
+		return conversionMultiple;
 	}
 
-	public void setConversionMultiplier(Double conversionMultiplier) {
-		this.conversionMultiplier = conversionMultiplier;
+	public void setConversionMultiple(Double conversionMultiple) {
+		this.conversionMultiple = conversionMultiple;
 	}
 
 	public Double getTotalConvertedValue() {
@@ -66,6 +71,14 @@ public class CurrencyConversion {
 
 	public void setTotalConvertedValue(Double totalConvertedValue) {
 		this.totalConvertedValue = totalConvertedValue;
+	}
+
+	public String getPort() {
+		return port;
+	}
+
+	public void setPort(String port) {
+		this.port = port;
 	}
 
 }

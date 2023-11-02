@@ -9,10 +9,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.microservices.currencyconversionservice.CurrencyExchangeServiceProxy;
 import com.example.microservices.currencyconversionservice.entity.CurrencyConversion;
 
 @RestController
 public class CurrencyConversionRestController {
+
+	private final CurrencyExchangeServiceProxy exchangeProxy;
+
+	public CurrencyConversionRestController(CurrencyExchangeServiceProxy exchangeProxy) {
+		super();
+		this.exchangeProxy = exchangeProxy;
+	}
 
 	@GetMapping("/currency-converter/{fromCurrency}/{toCurrency}/{quantity}")
 	public CurrencyConversion convertCurrency(@PathVariable String fromCurrency, @PathVariable String toCurrency,
@@ -26,6 +34,16 @@ public class CurrencyConversionRestController {
 				"http://localhost:8000/currency-exchange/{fromCurrency}/{toCurrency}", CurrencyConversion.class,
 				pathVariableMap);
 		CurrencyConversion response = responseEntity.getBody();
+
+		return new CurrencyConversion(1L, fromCurrency, toCurrency, quantity, response.getConversionMultiple(),
+				(quantity * response.getConversionMultiple()), response.getPort());
+	}
+	
+	@GetMapping("/currency-converter-feign/{fromCurrency}/{toCurrency}/{quantity}")
+	public CurrencyConversion convertCurrencyFeign(@PathVariable String fromCurrency, @PathVariable String toCurrency,
+			@PathVariable Double quantity) {
+
+		CurrencyConversion response = exchangeProxy.retreiveExchangeValue(fromCurrency, toCurrency);
 
 		return new CurrencyConversion(1L, fromCurrency, toCurrency, quantity, response.getConversionMultiple(),
 				(quantity * response.getConversionMultiple()), response.getPort());

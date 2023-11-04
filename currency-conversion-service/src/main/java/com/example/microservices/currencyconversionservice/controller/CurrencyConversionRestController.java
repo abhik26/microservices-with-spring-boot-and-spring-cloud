@@ -18,11 +18,10 @@ public class CurrencyConversionRestController {
 	private final CurrencyExchangeServiceProxy exchangeProxy;
 
 	public CurrencyConversionRestController(CurrencyExchangeServiceProxy exchangeProxy) {
-		super();
 		this.exchangeProxy = exchangeProxy;
 	}
 
-	@GetMapping("/currency-converter/{fromCurrency}/{toCurrency}/{quantity}")
+	@GetMapping("/currency-converter/from/{fromCurrency}/to/{toCurrency}/quantity/{quantity}")
 	public CurrencyConversion convertCurrency(@PathVariable String fromCurrency, @PathVariable String toCurrency,
 			@PathVariable Double quantity) {
 
@@ -31,7 +30,7 @@ public class CurrencyConversionRestController {
 		pathVariableMap.put("toCurrency", toCurrency);
 
 		ResponseEntity<CurrencyConversion> responseEntity = new RestTemplate().getForEntity(
-				"http://localhost:8000/currency-exchange/{fromCurrency}/{toCurrency}", CurrencyConversion.class,
+				"http://localhost:8000/currency-exchange/from/{fromCurrency}/to/{toCurrency}", CurrencyConversion.class,
 				pathVariableMap);
 		CurrencyConversion response = responseEntity.getBody();
 
@@ -39,7 +38,7 @@ public class CurrencyConversionRestController {
 				(quantity * response.getConversionMultiple()), response.getPort());
 	}
 	
-	@GetMapping("/currency-converter-feign/{fromCurrency}/{toCurrency}/{quantity}")
+	@GetMapping("/currency-converter-feign/from/{fromCurrency}/to/{toCurrency}/quantity/{quantity}")
 	public CurrencyConversion convertCurrencyFeign(@PathVariable String fromCurrency, @PathVariable String toCurrency,
 			@PathVariable Double quantity) {
 

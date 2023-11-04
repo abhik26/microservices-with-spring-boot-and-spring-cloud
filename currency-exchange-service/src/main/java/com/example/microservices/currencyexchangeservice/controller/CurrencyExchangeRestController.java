@@ -21,7 +21,7 @@ public class CurrencyExchangeRestController {
 		this.exchangeValueRepository = exchangeValueRepository;
 	}
 
-	@GetMapping("/currency-exchange/{fromCurrency}/{toCurrency}")
+	@GetMapping("/currency-exchange/from/{fromCurrency}/to/{toCurrency}")
 	public ExchangeValue getExchangeValue(@PathVariable("fromCurrency") String fromCurrency, 
 			@PathVariable("toCurrency") String toCurrency) {
 		ExchangeValue value = exchangeValueRepository.findByFromCurrencyAndToCurrency(fromCurrency, toCurrency);

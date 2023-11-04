@@ -10,7 +10,7 @@ import com.example.microservices.currencyconversionservice.entity.CurrencyConver
 @FeignClient(name = "currency-exchange-service")
 public interface CurrencyExchangeServiceProxy {
 
-	@GetMapping("/currency-exchange/{fromCurrency}/{toCurrency}")
+	@GetMapping("/currency-exchange/from/{fromCurrency}/to/{toCurrency}")
 	public CurrencyConversion retreiveExchangeValue(@PathVariable("fromCurrency") String fromCurrency,
 			@PathVariable("toCurrency") String toCurrency);
 }

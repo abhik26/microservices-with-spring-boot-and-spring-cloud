@@ -10,6 +10,7 @@ public class APIGatewayConfiguration {
 
 	@Bean
 	public RouteLocator gatewayRouter(RouteLocatorBuilder routeLocatorBuilder) {
+		// lb stands for load balancer
 		return  routeLocatorBuilder.routes()
 				.route(r -> r.path("/currency-exchange/**").uri("lb://currency-exchange-service"))
 				.route(r -> r.path("/currency-converter/**").uri("lb://currency-conversion-service"))

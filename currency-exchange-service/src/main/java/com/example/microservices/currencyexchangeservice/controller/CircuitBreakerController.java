@@ -24,6 +24,7 @@ public class CircuitBreakerController {
 		return "sample response";
 	}
 	
+	// fallback method always need to have a parameter of type 'java.lang.Throwable'
 	public String fallbackMethod(Exception exception) {
 		return "hardcoded fallback response";
 	}
